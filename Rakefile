@@ -15,8 +15,7 @@ Jeweler::Tasks.new do |gem|
   gem.name = "smart_titles"
   gem.homepage = "http://github.com/semaperepelitsa/smart_titles"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Really convenient way to set up page titles in Rails application.}
   gem.email = "sema@sema.in"
   gem.authors = ["Semyon Perepelitsa"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
