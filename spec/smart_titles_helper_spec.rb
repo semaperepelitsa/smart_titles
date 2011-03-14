@@ -1,14 +1,22 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require File.expand_path('spec_helper', File.dirname(__FILE__))
 
 describe SmartTitles::Helper do
   include ActionView::Helpers
 
-  it "#title sets up and #page_title returns the title" do
-    title 'Hello World!'
-    page_title.should == 'Hello World!'
+  before do
+    @sample = 'Hello World!'
   end
 
-  it "#title returns the title in h1 tag" do
-    title('Hello World!').should == '<h1>Hello World!</h1>'
+  describe '#page_title' do
+    it 'returns the title set by #title' do
+      title(@sample)
+      page_title.should == @sample
+    end
+  end
+
+  describe '#title' do
+    it 'returns the title in h1 tag' do
+      title(@sample).should == "<h1>#{@sample}</h1>"
+    end
   end
 end
