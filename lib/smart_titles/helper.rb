@@ -1,7 +1,7 @@
 module SmartTitles
   module Helper
     MISSING_TRANSLATION = 0
-  
+
     def page_title(default = nil)
       title if @page_title.nil?
       @page_title != MISSING_TRANSLATION ? @page_title : default
