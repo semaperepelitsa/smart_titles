@@ -9,12 +9,12 @@ module SmartTitles
 
     def title(str = nil)
       if str.nil?
-        str = t('.title')
+        str = t('.title', default: MISSING_TRANSLATION)
         @page_title = t('.title', :default => [:title, MISSING_TRANSLATION])
       else
         @page_title = str
       end
-      content_tag(:h1, str)
+      content_tag(:h1, str) unless str == MISSING_TRANSLATION
     end
   end
 end
