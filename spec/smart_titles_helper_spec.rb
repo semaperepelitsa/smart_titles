@@ -41,12 +41,12 @@ describe SmartTitles::Helper do
 
       it "falls back to :title if there is no .title" do
         store_translations title: "My Website"
-        title.should == ""
+        title.should be_blank
         page_title.should == "My Website"
       end
 
       it "sets nil title when no translated titles" do
-        title.should == ""
+        title.should be_blank
         page_title.should == nil
       end
     end
