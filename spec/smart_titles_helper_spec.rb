@@ -35,18 +35,18 @@ describe SmartTitles::Helper do
     describe '#title' do
       it "sets translated .title" do
         store_translations posts: { new: { title: "New post" } }
-        title
+        title.should == "<h1>New post</h1>"
         page_title.should == "New post"
       end
 
       it "falls back to :title if there is no .title" do
         store_translations title: "My Website"
-        title
+        title.should == ""
         page_title.should == "My Website"
       end
 
       it "sets nil title when no translated titles" do
-        title
+        title.should == ""
         page_title.should == nil
       end
     end
