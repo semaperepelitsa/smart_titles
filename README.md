@@ -45,6 +45,14 @@ If you are using I18n in your Rails application static titles are specified in t
         new:
           title: Create a page
 
+And then you should just call `title` without any parameters.
+
+    <%= title %>
+
+Note that even if you don't output it you still have to call it.
+
+    <% title %>
+
 Dynamic titles are set as usual:
 
     <%= title @page.title %> 
