@@ -5,6 +5,11 @@ describe SmartTitles::Helper do
 
   before do
     @virtual_path = 'posts/new'
+    I18n.backend.reload!
+  end
+
+  def store_translations(*args)
+    I18n.backend.store_translations(:en, *args)
   end
 
   describe 'no i18n' do
@@ -38,18 +43,23 @@ describe SmartTitles::Helper do
       it "returns title passed if no title was set" do
         head_title("Default").should == "Default"
       end
+
+      describe 'with :title_template' do
+        it "used for page_title" do
+          store_translations title_template: "d %{title} b"
+          title("New post")
+          head_title.should == "d New post b"
+        end
+
+        it "is skipped for custom title" do
+          store_translations title_template: "d %{title} b"
+          head_title("Default").should == "Default"
+        end
+      end
     end
   end
 
   describe 'i18n' do
-    def store_translations(*args)
-      I18n.backend.store_translations(:en, *args)
-    end
-
-    before do
-      I18n.backend.reload!
-    end
-
     describe '#title' do
       it "returns .title wrapped in h1 tag if there are :title and .title" do
         store_translations title: "My Website", posts: { new: { title: "New post" } }
@@ -99,6 +109,18 @@ describe SmartTitles::Helper do
       it "returns .title even if custom default title is passed" do
         store_translations posts: { new: { title: "New post" } }
         head_title("Custom").should == "New post"
+      end
+
+      describe 'with :title_template' do
+        it "used for page_title" do
+          store_translations title_template: "d %{title} b", posts: { new: { title: "New post" } }
+          head_title.should == "d New post b"
+        end
+
+        it "is skipped for default title" do
+          store_translations title: "My Website", title_template: "d %{title} b"
+          head_title.should == "My Website"
+        end
       end
     end
   end

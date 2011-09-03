@@ -3,7 +3,11 @@ module SmartTitles
     MISSING_TRANSLATION = 0
 
     def head_title(custom_default_title = nil)
-      page_title || custom_default_title || default_title
+      if title = page_title
+        t(:title_template, title: title, default: title)
+      else
+        page_title || custom_default_title || default_title
+      end
     end
 
     attr_writer :page_title
