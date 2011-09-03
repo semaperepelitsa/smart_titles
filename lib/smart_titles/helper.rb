@@ -2,8 +2,12 @@ module SmartTitles
   module Helper
     MISSING_TRANSLATION = 0
 
-    def head_title(custom_default_title = nil)
-      if title = page_title
+    def head_title(*args)
+      options = args.extract_options!
+      options[:template] = true if options[:template].nil?
+      custom_default_title = args.first
+
+      if options[:template] && title = page_title
         t(:title_template, title: title, default: title)
       else
         page_title || custom_default_title || default_title

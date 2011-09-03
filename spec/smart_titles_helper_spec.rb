@@ -55,6 +55,12 @@ describe SmartTitles::Helper do
           store_translations title_template: "d %{title} b"
           head_title("Default").should == "Default"
         end
+
+        it "is skipped if template: false" do
+          store_translations title_template: "d %{title} b"
+          title("New post")
+          head_title("Default", template: false).should == "New post"
+        end
       end
     end
   end
@@ -120,6 +126,11 @@ describe SmartTitles::Helper do
         it "is skipped for default title" do
           store_translations title: "My Website", title_template: "d %{title} b"
           head_title.should == "My Website"
+        end
+
+        it "is skipped if template: false" do
+          store_translations title_template: "d %{title} b", posts: { new: { title: "New post" } }
+          head_title(template: false).should == "New post"
         end
       end
     end
