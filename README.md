@@ -52,7 +52,7 @@ Note that you don't have to call it if you don't output it.
 
 Dynamic titles are set as usual:
 
-    <%= title @page.title %> 
+    <%= title @page.title %>
 
 Changelog
 ---
