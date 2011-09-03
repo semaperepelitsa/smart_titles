@@ -26,12 +26,9 @@ Integration
 ---
 You have to insert the following code inside the `<title>` tag in your layout:
 
-    <title><%= page_title || "Default title" %></title>
+    <title><%= head_title "Default title" %></title>
 
-The default title is displayed only if you haven't specified the title in your view.
-You can also omit `||` operator like this:
-
-    <title><%= page_title "Default title" %></title>
+The default title is displayed only if you haven't specified title in your view.
 
 With Internationalization
 ---
