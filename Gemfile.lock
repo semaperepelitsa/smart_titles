@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    smart_titles (0.2.0)
+    smart_titles (0.2.1)
       actionpack
       activesupport
 
