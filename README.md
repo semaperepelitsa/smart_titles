@@ -54,6 +54,11 @@ Dynamic titles are set as usual:
 
     <%= title @page.title %> 
 
+Changelog
+---
+### 0.2.0
+* `page_title` renamed to `head_title`.
+
 Contributing
 ---
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
