@@ -54,6 +54,10 @@ Dynamic titles are set as usual:
 
     <%= title @page.title %>
 
+"Default title" will be only used by `head_title` if you call it with no arguments and there will be no title set by the current page.
+
+    <title><%= head_title %></title>
+
 Changelog
 ---
 ### 0.2.0
