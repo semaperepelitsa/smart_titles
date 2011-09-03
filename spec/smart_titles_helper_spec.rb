@@ -60,6 +60,11 @@ describe SmartTitles::Helper do
       it "returns nil if title wasn't set and there is no :title" do
         page_title.should == nil
       end
+
+      it "returns .title even if #title wasn't called" do
+        store_translations posts: { new: { title: "New post" } }
+        page_title.should == "New post"
+      end
     end
   end
 end
