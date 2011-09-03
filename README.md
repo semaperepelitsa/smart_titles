@@ -58,10 +58,24 @@ Dynamic titles are set as usual:
 
     <title><%= head_title %></title>
 
+Title Template
+---
+If you want to add your website name to all of your titles just add :title_template translation
+
+    en:
+      title: The Coolest Store
+      title_template: %{title} from the Coolest Store
+      products:
+        index:
+          title: Products
+
+And now products#index page will have "Products from the Coolest Store" browser's title. However, `<%= title %>` will still output `<h1>Products</h1>`.
+
 Changelog
 ---
 ### 0.2.0
 * `page_title` renamed to `head_title`.
+* Added support for :title_template translation
 
 Contributing
 ---
