@@ -41,49 +41,65 @@ describe SmartTitles::Helper do
     end
   end
 
-  # describe 'i18n' do
-  #   def store_translations(*args)
-  #     I18n.backend.store_translations(:en, *args)
-  #   end
-  # 
-  #   before do
-  #     @virtual_path = 'posts/new'
-  #     I18n.backend.reload!
-  #   end
-  # 
-  #   describe '#title' do
-  #     it "sets translated .title" do
-  #       store_translations posts: { new: { title: "New post" } }
-  #       title.should == "<h1>New post</h1>"
-  #       page_title.should == "New post"
-  #     end
-  # 
-  #     it "falls back to :title if there is no .title" do
-  #       store_translations title: "My Website"
-  #       title.should be_blank
-  #       page_title.should == "My Website"
-  #     end
-  # 
-  #     it "sets nil title when no translated titles" do
-  #       title.should be_blank
-  #       page_title.should == nil
-  #     end
-  #   end
-  # 
-  #   describe '#page_title' do
-  #     it "returns :title if title wasn't set" do
-  #       store_translations title: "My Website"
-  #       page_title.should == "My Website"
-  #     end
-  # 
-  #     it "returns nil if title wasn't set and there is no :title" do
-  #       page_title.should == nil
-  #     end
-  # 
-  #     it "returns .title even if #title wasn't called" do
-  #       store_translations posts: { new: { title: "New post" } }
-  #       page_title.should == "New post"
-  #     end
-  #   end
-  # end
+  describe 'i18n' do
+    def store_translations(*args)
+      I18n.backend.store_translations(:en, *args)
+    end
+
+    before do
+      I18n.backend.reload!
+    end
+
+    describe '#title' do
+      it "returns .title wrapped in h1 tag if there are :title and .title" do
+        store_translations title: "My Website", posts: { new: { title: "New post" } }
+        title.should == "<h1>New post</h1>"
+      end
+
+      it "returns .title wrapped in h1 tag if there is only .title" do
+        store_translations posts: { new: { title: "New post" } }
+        title.should == "<h1>New post</h1>"
+      end
+
+      it "returns nothing if there is no .title" do
+        store_translations title: "My Website"
+        title.should == nil
+      end
+
+      it "returns nothing if there are no translations" do
+        title.should == nil
+      end
+    end
+
+    describe '#head_title' do
+      it "returns .title if there are :title and .title" do
+        store_translations title: "My Website", posts: { new: { title: "New post" } }
+        head_title.should == "New post"
+      end
+
+      it "returns .title if there is only .title" do
+        store_translations posts: { new: { title: "New post" } }
+        head_title.should == "New post"
+      end
+
+      it "returns :title if there is no .title" do
+        store_translations title: "My Website"
+        head_title.should == "My Website"
+      end
+
+      it "returns missing translation if there are no tranlations" do
+        head_title.should include("translation missing: en.title")
+      end
+
+      it "returns custom title" do
+        store_translations title: "My Website"
+        head_title("Custom").should == "Custom"
+      end
+
+      it "returns .title even if custom default title is passed" do
+        store_translations posts: { new: { title: "New post" } }
+        head_title("Custom").should == "New post"
+      end
+    end
+  end
 end
