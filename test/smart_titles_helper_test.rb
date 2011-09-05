@@ -93,6 +93,16 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
 
+  def test_head_title_with_custom_default_title
+    assert_equal "Default", head_title("Default")
+  end
+
+  def test_head_title_with_custom_default_title_and_custom_title
+    title("Hi")
+    assert_equal "Hi", head_title("Default")
+  end
+
+
   def test_head_title_with_template_and_translated_titles
     title_translations
     title_template_translation
