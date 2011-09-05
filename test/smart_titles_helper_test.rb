@@ -26,6 +26,10 @@ class SmartTitlesHelperTest < ActionView::TestCase
     title_translation
   end
 
+  def title_template_translation
+    store_translations title_template: "d %{title} b"
+  end
+
 
   def test_page_title_with_custom_title
     title_translations
@@ -86,5 +90,31 @@ class SmartTitlesHelperTest < ActionView::TestCase
 
   def test_head_title_with_no_title
     assert_includes head_title, "translation missing: en.title"
+  end
+
+
+  def test_head_title_with_template_and_translated_titles
+    title_translations
+    title_template_translation
+    assert_equal "d New post b", head_title
+  end
+
+  def test_head_title_with_template_and_custom_title
+    title_translations
+    title_template_translation
+    title("Hi")
+    assert_equal "d Hi b", head_title
+  end
+
+  def test_head_title_with_template_and_translated_title
+    title_translation
+    title_template_translation
+    assert_equal "My Website", head_title
+  end
+
+  def test_head_title_with_skipped_template
+    title_translations
+    title_template_translation
+    assert_equal "New post", head_title(template: false)
   end
 end
