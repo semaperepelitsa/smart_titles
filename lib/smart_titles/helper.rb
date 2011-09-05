@@ -14,14 +14,20 @@ module SmartTitles
       end
     end
 
-    attr_writer :page_title
+    def page_title=(new_title)
+      provide(:page_title, new_title)
+    end
 
     def page_title
-      @page_title || default_page_title
+      if content_for?(:page_title)
+        content_for(:page_title)
+      else
+        default_page_title
+      end
     end
 
     def title(new_title = nil)
-      self.page_title = new_title if new_title
+      self.page_title = new_title
       content_tag(:h1, page_title) if page_title
     end
 
