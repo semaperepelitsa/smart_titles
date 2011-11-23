@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SmartTitlesHelperTest < ActionView::TestCase
+  include SmartTitles::Helper
+
   def setup
     super
     @av = ActionView::Base.new
