@@ -74,25 +74,20 @@ class SmartTitlesHelperTest < ActionView::TestCase
     store_title_template
     assert_equal "d New post b", head_title
   end
-  # 
-  # def test_head_title_with_template_and_custom_title
-  #   title_translations
-  #   title_template_translation
-  #   title("Hi")
-  #   assert_equal "d Hi b", head_title
-  # end
-  # 
-  # def test_head_title_with_template_and_translated_title
-  #   title_translation
-  #   title_template_translation
-  #   assert_equal "My Website", head_title
-  # end
-  # 
-  # def test_head_title_with_skipped_template
-  #   title_translations
-  #   title_template_translation
-  #   assert_equal "New post", head_title(template: false)
-  # end
+
+  def test_head_title_with_template_and_custom_title
+    store_global_title
+    store_page_title
+    store_title_template
+    title("Hi")
+    assert_equal "d Hi b", head_title
+  end
+
+  def test_head_title_with_template_and_translated_title
+    store_global_title
+    store_title_template
+    assert_equal "My Website", head_title
+  end
 
 private
 
