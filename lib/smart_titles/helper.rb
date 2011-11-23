@@ -8,11 +8,7 @@ module SmartTitles
     #
     # <title><%= head_title "My Blog" %></title>
     # The default title will be "My Blog" instead of :title translation.
-    def head_title(*args)
-      options = args.extract_options!
-      custom_default_title = args.first
-      default_title = custom_default_title || t(:title)
-
+    def head_title(default_title = t(:title))
       if title = page_title
         t(:title_template, title: title, default: title)
       else
