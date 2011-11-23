@@ -6,59 +6,27 @@ class SmartTitlesHelperTest < ActionView::TestCase
     @av = ActionView::Base.new
     @view_flow = ActionView::OutputFlow.new
     @virtual_path = 'posts/new'
+  end
+
+  def teardown
     I18n.backend.reload!
-  end
-
-  def store_translations(*args)
-    I18n.backend.store_translations(:en, *args)
-  end
-
-  def page_title_translation
-    store_translations posts: { new: { title: "New post" } }
-  end
-
-  def title_translation
-    store_translations title: "My Website"
-  end
-
-  def title_translations
-    page_title_translation
-    title_translation
-  end
-
-  def title_template_translation
-    store_translations title_template: "d %{title} b"
-  end
-
-
-  def test_page_title_with_custom_title
-    title_translations
-    title("Hi")
-    assert_equal "Hi", page_title
-  end
-
-  def test_page_title_with_translated_title
-    title_translations
-    assert_equal "New post", page_title
-  end
-
-  def test_page_title_with_no_title
-    assert_nil page_title
   end
 
 
   def test_custom_title
-    title_translations
+    store_global_title
+    store_page_title
     assert_equal "<h1>Hi</h1>", title("Hi")
   end
 
   def test_translated_title
-    title_translations
+    store_global_title
+    store_page_title
     assert_equal "<h1>New post</h1>", title
   end
 
   def test_no_page_title
-    title_translation
+    store_global_title
     assert_nil title
   end
 
@@ -68,23 +36,20 @@ class SmartTitlesHelperTest < ActionView::TestCase
 
 
   def test_head_title_with_custom_title
-    title_translations
+    store_global_title
+    store_page_title
     title("Hi")
     assert_equal "Hi", head_title
   end
 
-  def test_head_title_with_translated_titles
-    title_translations
-    assert_equal "New post", head_title
-  end
-
-  def test_head_title_with_translated_page_title
-    page_title_translation
-    assert_equal "New post", head_title
-  end
-
   def test_head_title_with_translated_title
-    title_translation
+    store_global_title
+    store_page_title
+    assert_equal "New post", head_title
+  end
+
+  def test_head_title_with_translated_global_title
+    store_global_title
     assert_equal "My Website", head_title
   end
 
@@ -93,38 +58,62 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
 
-  def test_head_title_with_custom_default_title
+  def test_head_title_with_custom_global_title
     assert_equal "Default", head_title("Default")
   end
 
-  def test_head_title_with_custom_default_title_and_custom_title
+  def test_head_title_with_custom_global_title_and_custom_title
     title("Hi")
     assert_equal "Hi", head_title("Default")
   end
 
 
-  def test_head_title_with_template_and_translated_titles
-    title_translations
-    title_template_translation
-    assert_equal "d New post b", head_title
+  # def test_head_title_with_template_and_translated_titles
+  #   store_titles
+  #   store_title_template
+  #   assert_equal "d New post b", head_title
+  # end
+  # 
+  # def test_head_title_with_template_and_custom_title
+  #   title_translations
+  #   title_template_translation
+  #   title("Hi")
+  #   assert_equal "d Hi b", head_title
+  # end
+  # 
+  # def test_head_title_with_template_and_translated_title
+  #   title_translation
+  #   title_template_translation
+  #   assert_equal "My Website", head_title
+  # end
+  # 
+  # def test_head_title_with_skipped_template
+  #   title_translations
+  #   title_template_translation
+  #   assert_equal "New post", head_title(template: false)
+  # end
+
+private
+
+  def store_translations(*args)
+    I18n.backend.store_translations(:en, *args)
   end
 
-  def test_head_title_with_template_and_custom_title
-    title_translations
-    title_template_translation
-    title("Hi")
-    assert_equal "d Hi b", head_title
+  def store_page_title
+    store_translations posts: { new: { title: "New post" } }
   end
 
-  def test_head_title_with_template_and_translated_title
-    title_translation
-    title_template_translation
-    assert_equal "My Website", head_title
+  def store_titles
+    store_global_title
+    store_page_title
   end
 
-  def test_head_title_with_skipped_template
-    title_translations
-    title_template_translation
-    assert_equal "New post", head_title(template: false)
+  def store_global_title
+    store_translations title: "My Website"
   end
+
+  def store_title_template
+    store_translations title_template: "d %{title} b"
+  end
+
 end

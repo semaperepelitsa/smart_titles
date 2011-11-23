@@ -2,42 +2,41 @@ module SmartTitles
   module Helper
     MISSING_TRANSLATION = 0
 
+    # <title><%= head_title %></title>
+    # Will return title if it was set for the current page.
+    # Otherwise will return :title translation.
+    #
+    # <title><%= head_title "My Blog" %></title>
+    # The default title will be "My Blog" instead of :title translation.
     def head_title(*args)
       options = args.extract_options!
-      options[:template] = true if options[:template].nil?
       custom_default_title = args.first
+      default_title = custom_default_title || t(:title)
 
-      if options[:template] && title = page_title
+      if title = page_title
         t(:title_template, title: title, default: title)
       else
-        page_title || custom_default_title || default_title
+        default_title
       end
     end
 
-    def page_title=(new_title)
-      provide(:page_title, new_title)
-    end
-
+    # This is a page title that was set by the #title helper method
+    # It defaults to ".title" translation
     def page_title
       if content_for?(:page_title)
         content_for(:page_title)
       else
-        default_page_title
+        translation = t('.title', default: MISSING_TRANSLATION)
+        translation unless translation == MISSING_TRANSLATION
       end
     end
 
-    def title(new_title = nil)
-      self.page_title = new_title
+    # Convinient helper method that will:
+    # * Set custom title for the current page if it is passed. Otherwise the title will be automatically set 
+    # * Return the title passed or looked up from locale wrapped into h1 tag
+    def title(custom_title = nil)
+      provide(:page_title, custom_title)
       content_tag(:h1, page_title) if page_title
-    end
-
-    def default_page_title
-      translation = t('.title', default: MISSING_TRANSLATION)
-      translation unless translation == MISSING_TRANSLATION
-    end
-
-    def default_title
-      t(:title)
     end
   end
 end
