@@ -68,11 +68,12 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
 
-  # def test_head_title_with_template_and_translated_titles
-  #   store_titles
-  #   store_title_template
-  #   assert_equal "d New post b", head_title
-  # end
+  def test_head_title_with_template_and_translated_titles
+    store_global_title
+    store_page_title
+    store_title_template
+    assert_equal "d New post b", head_title
+  end
   # 
   # def test_head_title_with_template_and_custom_title
   #   title_translations
