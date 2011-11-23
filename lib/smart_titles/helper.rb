@@ -1,6 +1,6 @@
 module SmartTitles
   module Helper
-    MISSING_TRANSLATION = 0
+    MISSING_TRANSLATION = Object.new
 
     # <title><%= head_title %></title>
     # Will return title if it was set for the current page.
@@ -27,7 +27,7 @@ module SmartTitles
         content_for(:page_title)
       else
         translation = t('.title', default: MISSING_TRANSLATION)
-        translation unless translation == MISSING_TRANSLATION
+        translation unless translation.equal? MISSING_TRANSLATION
       end
     end
 
