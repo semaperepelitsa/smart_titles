@@ -29,7 +29,7 @@ module SmartTitles
     # * Set custom title for the current page if it is passed. Otherwise the title will be automatically set 
     # * Return the title passed or looked up from locale wrapped into h1 tag
     def title(custom_title = nil)
-      provide(:page_title, custom_title)
+      provide(:page_title, custom_title || page_title)
       content_tag(:h1, page_title) if page_title
     end
 
