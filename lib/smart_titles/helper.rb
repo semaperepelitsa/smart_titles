@@ -25,6 +25,16 @@ module SmartTitles
       end
     end
 
+    # Convinient helper method that will:
+    # * Set custom title for the current page if it is passed. Otherwise the title will be automatically set 
+    # * Return the title passed or looked up from locale wrapped into h1 tag
+    def title(custom_title = nil)
+      provide(:page_title, custom_title)
+      content_tag(:h1, page_title) if page_title
+    end
+
+  private
+
     # This is a page title that was set by the #title helper method
     # It defaults to ".title" translation
     def page_title
@@ -34,14 +44,6 @@ module SmartTitles
         translation = t('.title', default: MISSING_TRANSLATION)
         translation unless translation.equal? MISSING_TRANSLATION
       end
-    end
-
-    # Convinient helper method that will:
-    # * Set custom title for the current page if it is passed. Otherwise the title will be automatically set 
-    # * Return the title passed or looked up from locale wrapped into h1 tag
-    def title(custom_title = nil)
-      provide(:page_title, custom_title)
-      content_tag(:h1, page_title) if page_title
     end
   end
 end
