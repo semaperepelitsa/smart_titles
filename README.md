@@ -46,7 +46,7 @@ And then you should just call `title` without any arguments.
 
     <%= title %>
 
-Note that you don't have to call it if you don't output it.
+Note that you _have to call it_ even if you don't output it.
 
     <% title %>
 
