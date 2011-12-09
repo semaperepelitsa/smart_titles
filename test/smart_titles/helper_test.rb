@@ -7,7 +7,24 @@ class SmartTitlesHelperTest < ActionView::TestCase
     super
     @av = ActionView::Base.new
     @view_flow = ActionView::OutputFlow.new
+  end
+
+  def inside_view
     @virtual_path = 'posts/new'
+  end
+
+  def inside_layout
+    @virtual_path = 'layouts/application'
+  end
+
+  def title(*args)
+    inside_view
+    super
+  end
+
+  def head_title(*args)
+    inside_layout
+    super
   end
 
   def teardown
@@ -47,7 +64,6 @@ class SmartTitlesHelperTest < ActionView::TestCase
   def test_head_title_with_translated_title
     store_global_title
     store_page_title
-    assert_equal "New post", head_title
     title
     assert_equal "New post", head_title
   end
@@ -76,6 +92,7 @@ class SmartTitlesHelperTest < ActionView::TestCase
     store_global_title
     store_page_title
     store_title_template
+    title
     assert_equal "d New post b", head_title
   end
 
