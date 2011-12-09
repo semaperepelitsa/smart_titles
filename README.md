@@ -73,6 +73,15 @@ And now products#index page will have "Products from the Coolest Store" browser'
 
 Changelog
 ---
+### 0.3.0
+* Important change in the documentation: you have to call `title` with no arguments when you want to use translated title.
+* Fixed bug when `head_title` returned default title even if there was a custom title in locale.
+* Added actual Railtie class for reliable integration. This fixes a problem when sometimes helper wasn't included for some reason.
+* Internal changes that you probably don't care about.
+  * There are now only 2 public helper methods: `title` and `head_title`.
+  * All helper methods are documented.
+  * Missing translation is now detected more safely.
+
 ### 0.2.0
 * `page_title` renamed to `head_title`.
 * Added support for :title_template translation
