@@ -48,6 +48,8 @@ class SmartTitlesHelperTest < ActionView::TestCase
     store_global_title
     store_page_title
     assert_equal "New post", head_title
+    title
+    assert_equal "New post", head_title
   end
 
   def test_head_title_with_translated_global_title
