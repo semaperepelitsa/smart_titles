@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = "sema@sema.in"
   s.homepage    = "http://github.com/semaperepelitsa/smart_titles"
   s.license     = "MIT"
-  s.summary     = %q{Really convenient way to set up page titles in Rails application.}
+  s.summary     = %q{Really convenient way to set up page titles in a Rails application.}
 
   s.add_dependency 'activesupport'
   s.add_dependency 'actionpack'
