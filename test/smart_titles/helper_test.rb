@@ -3,30 +3,14 @@ require "test_helper"
 class SmartTitlesHelperTest < ActionView::TestCase
   include SmartTitles::Helper
 
+  # This makes content_for work, maybe there is a better way
   def setup
     super
     @av = ActionView::Base.new
     @view_flow = ActionView::OutputFlow.new
   end
 
-  def inside_view
-    @virtual_path = 'posts/new'
-  end
-
-  def inside_layout
-    @virtual_path = 'layouts/application'
-  end
-
-  def title(*args)
-    inside_view
-    super
-  end
-
-  def head_title(*args)
-    inside_layout
-    super
-  end
-
+  # Clean all stored translations
   def teardown
     I18n.backend.reload!
   end
@@ -111,6 +95,29 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
 private
+
+  # Virtual path is used by Rails-patched version of I18n.translate
+  # to convert ".title" to e.g. "posts.new.title"
+  def inside_view
+    @virtual_path = 'posts/new'
+  end
+
+  def inside_layout
+    @virtual_path = 'layouts/application'
+  end
+
+  # This helper method is always called from the view
+  def title(*args)
+    inside_view
+    super
+  end
+
+  # And this - from the layout
+  def head_title(*args)
+    inside_layout
+    super
+  end
+
 
   def store_translations(*args)
     I18n.backend.store_translations(:en, *args)
