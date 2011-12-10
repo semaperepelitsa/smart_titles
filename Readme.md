@@ -16,7 +16,7 @@ Installation
 ---
 Add this line to your Gemfile:
 
-    gem 'smart_titles'
+    gem 'smart_titles', '~> 0.3.0'
 
 And run:
 
