@@ -12,6 +12,8 @@ If you don't want to display it inside the page simply remove an equality sign:
     <% title "Title for a browser window" %>
     <h1>Different title for the page</h1>
 
+This gem is under development and [therefore](http://semver.org/) API can change between minor versions until the 1.0.0.
+
 Installation
 ---
 Add this line to your Gemfile:
