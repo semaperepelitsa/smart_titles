@@ -98,4 +98,4 @@ Contributing
 
 Copyright
 ---
-Created by Semyon Perepelitsa. Distributed under MIT license. See LICENSE.txt for further details.
+Created by Semyon Perepelitsa. Distributed under MIT license. See License.txt for further details.
