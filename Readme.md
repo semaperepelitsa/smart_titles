@@ -13,7 +13,7 @@ If you don't want to display it inside the page simply remove an equality sign:
     <h1>Different title for the page</h1>
 
 This gem is under development and [therefore](http://semver.org/) API can change between minor versions until the 1.0.0.
-It works only with Rails 3.1.
+It works only with Rails 3.1 and higher.
 
 Installation
 ---
