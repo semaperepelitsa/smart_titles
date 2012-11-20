@@ -76,6 +76,9 @@ And now products#index page will have "Products from the Coolest Store" browser'
 
 Changelog
 ---
+### 0.3.2
+Page title is no longer double-escaped.
+
 ### 0.3.0
 * Important change in the documentation: you have to call `title` with no arguments when you want to use translated title.
 * Fixed bug when `head_title` returned default title even if there was a custom title in locale.

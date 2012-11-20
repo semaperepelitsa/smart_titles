@@ -94,6 +94,19 @@ class SmartTitlesHelperTest < ActionView::TestCase
     assert_equal "My Website", head_title
   end
 
+
+  def test_head_title_template_is_escaped
+    store_translations title_template: '"%{title}"'
+    title 'New post'
+    assert_equal '&quot;New post&quot;', h(head_title)
+  end
+
+  def test_head_title_is_not_double_escaped
+    title 'New "post"'
+    assert_equal 'New &quot;post&quot;', h(head_title)
+  end
+
+
 private
 
   # Virtual path is used by Rails-patched version of I18n.translate
@@ -138,6 +151,10 @@ private
 
   def store_title_template
     store_translations title_template: "d %{title} b"
+  end
+
+  def h(s)
+    ERB::Util.html_escape(s)
   end
 
 end
