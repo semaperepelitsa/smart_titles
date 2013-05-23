@@ -90,7 +90,8 @@ The website title and template translations can now be scoped by layout. Example
       admin:
         title: Web Admin
 
-The old global translations still do work.
+Also, this prevents h1 from showing default title when translation is missing if you use cascading I18n backend.
+The old-style global translations still do work.
 
 ### 0.3.2
 Page title is no longer double-escaped.
