@@ -12,8 +12,7 @@ If you don't want to display it inside the page simply remove an equality sign:
     <% title "Title for a browser window" %>
     <h1>Different title for the page</h1>
 
-This gem is under development and [therefore](http://semver.org/) API can change between minor versions until the 1.0.0.
-It works only with Rails 3.1 and higher.
+The gem uses [Semantic Versioning](http://semver.org/). It works with Rails 3.1 and higher.
 
 Installation
 ---
@@ -27,7 +26,7 @@ And run:
 
 Integration
 ---
-You have to insert the following code inside the `<title>` tag in your layout:
+Insert `head_title` inside the `<title>` tag in your layout:
 
     <title><%= head_title "Default title" %></title>
 
@@ -35,10 +34,12 @@ The default title is displayed only if you haven't specified title in your view.
 
 With Internationalization
 ---
-If you are using I18n in your Rails application static titles are specified in the locale file:
+It is easy to translate titles using built-in Rails I18n.
 
     en:
-      title: Default title
+      layouts:
+        application:
+          title: Default title
       pages:
         index:
           title: All pages
@@ -49,7 +50,11 @@ And then you should just call `title` without any arguments.
 
     <%= title %>
 
-Note that you _have to call it_ even if you don't output it.
+The same goes for `head_title`:
+
+    <title><%= head_title %></title>
+
+Note that you _have to call `title`_ even if you don't output it.
 
     <% title %>
 
@@ -57,17 +62,15 @@ Dynamic titles are set as usual:
 
     <%= title @page.title %>
 
-"Default title" will be only used by `head_title` if you call it with no arguments and there will be no title set by the current page.
-
-    <title><%= head_title %></title>
-
 Title Template
 ---
-If you want to add your website name to all of your titles just add :title_template translation
+If you want to add your website name to all of your titles just add title_template translation
 
     en:
-      title: The Coolest Store
-      title_template: %{title} from the Coolest Store
+      layouts:
+        application:
+          title: The Coolest Store
+          title_template: %{title} from the Coolest Store
       products:
         index:
           title: Products
@@ -76,6 +79,19 @@ And now products#index page will have "Products from the Coolest Store" browser'
 
 Changelog
 ---
+
+### 0.4.0
+The website title and template translations can now be scoped by layout. Example:
+
+    layouts:
+      application:
+        title: My Website
+        title_template: "%{title} - My Website"
+      admin:
+        title: Web Admin
+
+The old global translations still do work.
+
 ### 0.3.2
 Page title is no longer double-escaped.
 

@@ -17,19 +17,19 @@ class SmartTitlesHelperTest < ActionView::TestCase
 
 
   def test_custom_title
-    store_global_title
+    store_layout_title
     store_page_title
     assert_equal "<h1>Hi</h1>", title("Hi")
   end
 
   def test_translated_title
-    store_global_title
+    store_layout_title
     store_page_title
     assert_equal "<h1>New post</h1>", title
   end
 
   def test_no_page_title
-    store_global_title
+    store_layout_title
     assert_nil title
   end
 
@@ -39,21 +39,21 @@ class SmartTitlesHelperTest < ActionView::TestCase
 
 
   def test_head_title_with_custom_title
-    store_global_title
+    store_layout_title
     store_page_title
     title("Hi")
     assert_equal "Hi", head_title
   end
 
   def test_head_title_with_translated_title
-    store_global_title
+    store_layout_title
     store_page_title
     title
     assert_equal "New post", head_title
   end
 
   def test_head_title_with_translated_global_title
-    store_global_title
+    store_layout_title
     assert_equal "My Website", head_title
   end
 
@@ -73,7 +73,7 @@ class SmartTitlesHelperTest < ActionView::TestCase
 
 
   def test_head_title_with_template_and_translated_titles
-    store_global_title
+    store_layout_title
     store_page_title
     store_title_template
     title
@@ -81,7 +81,7 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
   def test_head_title_with_template_and_custom_title
-    store_global_title
+    store_layout_title
     store_page_title
     store_title_template
     title("Hi")
@@ -89,9 +89,18 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
   def test_head_title_with_template_and_translated_title
-    store_global_title
+    store_layout_title
     store_title_template
     assert_equal "My Website", head_title
+  end
+
+  def test_head_title_old
+    store_old_global_title
+    assert_equal "My Website", head_title
+
+    store_page_title
+    title
+    assert_equal "d New post b", head_title
   end
 
 
@@ -145,11 +154,16 @@ private
     store_page_title
   end
 
-  def store_global_title
-    store_translations title: "My Website"
+  def store_layout_title
+    store_translations layouts: { application: { title: "My Website" } }
   end
 
   def store_title_template
+    store_translations layouts: { application: { title_template: "d %{title} b" } }
+  end
+
+  def store_old_global_title
+    store_translations title: "My Website"
     store_translations title_template: "d %{title} b"
   end
 
