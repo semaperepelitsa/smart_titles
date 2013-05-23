@@ -27,12 +27,20 @@ module SmartTitles
     # Convinient helper method that will:
     # * Set custom title for the current page if it is passed. Otherwise the title will be automatically set 
     # * Return the title passed or looked up from locale wrapped into h1 tag
-    def title(custom_title = nil)
-      title = custom_title || \
-        begin
-          translation = t('.title', raise: true)
-        rescue I18n::MissingTranslationData
-        end
+    def title(custom_title_or_options = nil)
+      case custom_title_or_options
+      when Hash
+        options = custom_title_or_options
+      else
+        options = {}
+        custom_title = custom_title_or_options
+      end
+
+      title = custom_title
+      title ||= begin t('.title', options.merge(raise: true))
+                rescue I18n::MissingTranslationData
+                end
+
       title &&= title.html_safe
       provide(:page_title, title)
       content_tag(:h1, title) if title

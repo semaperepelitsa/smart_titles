@@ -28,6 +28,11 @@ class SmartTitlesHelperTest < ActionView::TestCase
     assert_equal "<h1>New post</h1>", title
   end
 
+  def test_translated_title_with_options
+    store_translations posts: { new: { title: "New post - %{category}" } }
+    assert_equal "<h1>New post - News</h1>", title(category: "News")
+  end
+
   def test_no_page_title
     store_layout_title
     assert_nil title
