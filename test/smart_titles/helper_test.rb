@@ -63,7 +63,7 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
   def test_head_title_with_no_title
-    assert_includes head_title, "translation missing: en.title"
+    assert_includes head_title, "translation missing"
   end
 
 
