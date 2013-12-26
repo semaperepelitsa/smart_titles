@@ -80,6 +80,9 @@ And now products#index page will have "Products from the Coolest Store" browser'
 Changelog
 ---
 
+### 0.4.2
+Compatibility with new I18n.
+
 ### 0.4.1
 This update fixes XSS vulnerability introduced in 0.3.2. H1 tag returned by "title" would skip HTML-escaping.
 Your app is affected if you include untrusted user input in the title and output the tag:
