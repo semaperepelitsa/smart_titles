@@ -80,6 +80,21 @@ And now products#index page will have "Products from the Coolest Store" browser'
 Changelog
 ---
 
+### 0.4.1
+This update fixes XSS vulnerability introduced in 0.3.2. H1 tag returned by "title" would skip HTML-escaping.
+Your app is affected if you include untrusted user input in the title and output the tag:
+
+    <%= title post.title %>
+    <%= title "My blog - #{post.title}" %>
+
+Not affected:
+
+    <% title post.title %> - no output
+    <%= title category.name %> - if your categories are not edited by users
+
+You are advised to upgrade. Alternatively, you can downgrade to 0.3.1 or below.
+Versions affected: 0.3.2, 0.4.0.
+
 ### 0.4.0
 The website title and template translations can now be scoped by layout. Example:
 
