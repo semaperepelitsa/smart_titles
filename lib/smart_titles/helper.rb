@@ -37,9 +37,9 @@ module SmartTitles
       end
 
       title = custom_title
-      title ||= begin t('.title', options.merge(raise: true))
-                rescue I18n::MissingTranslationData
-                end
+      catch(:exception) do
+        title ||= t('.title', options.merge(throw: true))
+      end
 
       provide(:page_title, title && title.html_safe) # "provide" already escapes
       content_tag(:h1, title) if title
