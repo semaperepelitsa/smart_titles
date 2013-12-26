@@ -116,8 +116,9 @@ class SmartTitlesHelperTest < ActionView::TestCase
   end
 
   def test_head_title_is_not_double_escaped
-    title 'New "post"'
+    result = title 'New "post"'
     assert_equal 'New &quot;post&quot;', h(head_title)
+    assert_equal '<h1>New &quot;post&quot;</h1>', h(result)
   end
 
 

@@ -41,8 +41,7 @@ module SmartTitles
                 rescue I18n::MissingTranslationData
                 end
 
-      title &&= title.html_safe
-      provide(:page_title, title)
+      provide(:page_title, title && title.html_safe) # "provide" already escapes
       content_tag(:h1, title) if title
     end
   end
