@@ -8,3 +8,4 @@ require 'action_view'
 require 'smart_titles'
 
 I18n.enforce_available_locales = true
+ActiveSupport.test_order = :random

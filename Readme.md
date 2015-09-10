@@ -80,6 +80,10 @@ And now products#index page will have "Products from the Coolest Store" browser'
 Changelog
 ---
 
+### 0.4.3
+
+Compatibility with I18n 0.7 & Rails 4.2.
+
 ### 0.4.2
 Compatibility with new I18n.
 
